@@ -8,7 +8,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      I am RobinLove
+      I am RobinLove I am loving you
     </div>
   )
 }
