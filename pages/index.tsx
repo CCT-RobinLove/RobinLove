@@ -8,10 +8,6 @@ export default function Home() {
     useEffect(() => {
         console.log("reeee");
         API.get("test", "/test", {}).then((r) => console.log(r));
-        // axios
-        //     .get("/test")
-        //     .then((r) => setTest(r.data))
-        //     .catch((e) => console.log(e, "reeeeeeee"));
     }, []);
     return (
         <div className="">
