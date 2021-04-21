@@ -9,6 +9,7 @@
     "export": "next export"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^1.0.7",
     "aws-amplify": "^3.3.27",
     "axios": "^0.21.1",
     "follow-redirects": "^1.13.3",
