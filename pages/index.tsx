@@ -7,7 +7,7 @@ export default function Home() {
     const [test, setTest] = useState("default test");
     useEffect(() => {
         console.log("reeee");
-        API.get("/test").then((r) => console.log(r));
+        API.get("test", "/test", {}).then((r) => console.log(r));
         // axios
         //     .get("/test")
         //     .then((r) => setTest(r.data))
@@ -19,7 +19,7 @@ export default function Home() {
                 <title>RobinLove</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>{test}</div> 
+            <div>{test}</div>
             <div>I am RobinLove I am loving you</div>
         </div>
     );
