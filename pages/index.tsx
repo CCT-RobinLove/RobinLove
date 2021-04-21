@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
-// import axios from "axios";
 import Amplify, { API } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 
@@ -8,8 +7,8 @@ function Home() {
     const [test, setTest] = useState("default test");
     useEffect(() => {
         console.log("reeee");
-        API.get("test", "/test", {}).then((r) => {
-            console.log("asdasdasdasd");
+        API.get("test2Api", "/test2", {}).then((r) => {
+            console.log("API Called finished 2");
             console.log(r);
         });
     }, []);
