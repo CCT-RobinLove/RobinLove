@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/test",
+            "lambdaFunction": "testLambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/test"
+        }
+    ],
+    "resourceName": "test",
+    "apiName": "test",
+    "functionArns": [
+        {
+            "lambdaFunction": "testLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-cctrobinlove-dev-160331-authRole",
+        "unAuthRoleName": "amplify-cctrobinlove-dev-160331-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "testLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
