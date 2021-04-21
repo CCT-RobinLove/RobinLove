@@ -7,7 +7,10 @@ export default function Home() {
     const [test, setTest] = useState("default test");
     useEffect(() => {
         console.log("reeee");
-        API.get("test", "/test", {}).then((r) => console.log(r));
+        API.get("test", "/test", {}).then((r) => {
+            console.log('asdasdasdasd');
+            console.log(r);
+        });
     }, []);
     return (
         <div className="">
