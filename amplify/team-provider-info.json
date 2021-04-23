@@ -12,14 +12,27 @@
       "AmplifyAppId": "d2uwbzpigdvc7j"
     },
     "categories": {
-      "function": {
-        "testTokyoLambda": {
-          "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/testTokyoLambda-7a474777534b4b4c6341-build.zip"
-        }
-      },
       "auth": {
         "cctrobinlovefcd9f192": {}
+      },
+      "storage": {
+        "robinlove8a55da83": {
+          "bucketName": "robinlove-s3",
+          "region": "ap-northeast-1"
+        },
+        "robinlovedb": {
+          "tableName": "robinlovedb",
+          "region": "ap-northeast-1",
+          "arn": "arn:aws:dynamodb:ap-northeast-1:241513323003:table/robinlovedb",
+          "partitionKeyName": "email",
+          "partitionKeyType": "S"
+        }
+      },
+      "function": {
+        "uploadLambda": {
+          "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
+          "s3Key": "amplify-builds/uploadLambda-68484334445376583474-build.zip"
+        }
       }
     }
   }

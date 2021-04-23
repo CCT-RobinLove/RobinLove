@@ -1,10 +1,5 @@
 {
   "function": {
-    "testTokyoLambda": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "uploadLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -12,20 +7,6 @@
     }
   },
   "api": {
-    "testTokyoApi": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "testTokyoLambda",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
-    },
     "uploadApi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
@@ -47,6 +28,20 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
+    }
+  },
+  "storage": {
+    "robinlove8a55da83": {
+      "service": "S3",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    },
+    "robinlovedb": {
+      "service": "DynamoDB",
+      "serviceType": "imported",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

@@ -13,14 +13,14 @@ function Home() {
 
     useEffect(() => {
         console.log("reeee");
-        API.get("testTokyoApi", "/testTokyo1", {}).then((r) => {
+        API.get("uploadApi", "/upload", {}).then((r) => {
             console.log("API Called finished 2");
             console.log(r);
         });
 
         createClient().then((client) =>
             client.searchPlaceIndexForText(params, (err, data) => {
-                console.log('finish search place index');
+                console.log("finish search place index");
                 if (err) console.error(err);
                 if (data) console.log(data);
             })

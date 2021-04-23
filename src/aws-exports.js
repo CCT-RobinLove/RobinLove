@@ -5,8 +5,8 @@ const awsmobile = {
     "aws_project_region": "ap-northeast-1",
     "aws_cloud_logic_custom": [
         {
-            "name": "testTokyoApi",
-            "endpoint": "https://avc1kstmtl.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "name": "uploadApi",
+            "endpoint": "https://cz9w4o8csg.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
             "region": "ap-northeast-1"
         }
     ],
@@ -27,7 +27,16 @@ const awsmobile = {
         "redirectSignOut": "https://master.d2uwbzpigdvc7j.amplifyapp.com/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_user_files_s3_bucket": "robinlove-s3",
+    "aws_user_files_s3_bucket_region": "ap-northeast-1",
+    "aws_dynamodb_all_tables_region": "ap-northeast-1",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "robinlovedb",
+            "region": "ap-northeast-1"
+        }
+    ]
 };
 
 
