@@ -27,16 +27,7 @@ const awsmobile = {
         "redirectSignOut": "https://master.d2uwbzpigdvc7j.amplifyapp.com/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS",
-    "aws_user_files_s3_bucket": "robinlove-s3",
-    "aws_user_files_s3_bucket_region": "ap-northeast-1",
-    "aws_dynamodb_all_tables_region": "ap-northeast-1",
-    "aws_dynamodb_table_schemas": [
-        {
-            "tableName": "robinlovedb",
-            "region": "ap-northeast-1"
-        }
-    ]
+    "federationTarget": "COGNITO_USER_POOLS"
 };
 
 
