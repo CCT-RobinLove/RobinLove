@@ -68,26 +68,38 @@ const uploadFile = (buffer, name, type) => {
     return s3bucket.upload(params).promise();
 };
 
-app.post("/upload", function (req, res) {
+app.post("/upload", async function (req, res) {
     // Add your code here
-    const form = new multiparty.Form();
+    try {
+        const user = req.body.email;
+        const path = req.body.filepath;
+        const buffer = fs.readFileSync(path);
+        const type = await fileType.fromBuffer(buffer);
+        const fileName = `${user}/${fileName}`;
+        const data = await uploadFile(buffer, fileName, type);
+        return res.status(200).send(data);
+    } catch (err) {
+        return res.status(500).send("It is not working...so sad TT");
+    }
 
-    form.parse(req, async (error, fields, files) => {
-        if (error) {
-            return res.status(500).send(error);
-        }
-        try {
-            const user = req.email;
-            const path = files.file[0].path;
-            const buffer = fs.readFileSync(path);
-            const type = await fileType.fromBuffer(buffer);
-            const fileName = `${user}/${Date.now().toString()}`;
-            const data = await uploadFile(buffer, fileName, type);
-            return res.status(200).send(data);
-        } catch (err) {
-            return res.status(500).send(err);
-        }
-    });
+    // const form = new multiparty.Form();
+
+    // form.parse(req, async (error, fields, files) => {
+    //     if (error) {
+    //         return res.status(500).send(error);
+    //     }
+    //     try {
+    //         const user = req.email;
+    //         const path = files.file[0].path;
+    //         const buffer = fs.readFileSync(path);
+    //         const type = await fileType.fromBuffer(buffer);
+    //         const fileName = `${user}/${Date.now().toString()}`;
+    //         const data = await uploadFile(buffer, fileName, type);
+    //         return res.status(200).send(data);
+    //     } catch (err) {
+    //         return res.status(500).send(err);
+    //     }
+    // });
     // res.json({ success: "post call succeed!", url: req.url, body: req.body });
 });
 

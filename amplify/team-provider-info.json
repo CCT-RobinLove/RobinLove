@@ -18,7 +18,7 @@
       "function": {
         "uploadLambda": {
           "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/uploadLambda-6852754c336177737334-build.zip"
+          "s3Key": "amplify-builds/uploadLambda-5766444f4c7033535643-build.zip"
         }
       }
     }
