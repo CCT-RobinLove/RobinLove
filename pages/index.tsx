@@ -20,6 +20,7 @@ function Home() {
             email: "test@fmail.com",
             filepath: filepath,
         },
+        headers: {},
     };
 
     useEffect(() => {

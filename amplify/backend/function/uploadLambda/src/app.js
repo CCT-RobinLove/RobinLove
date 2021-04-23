@@ -70,6 +70,8 @@ const uploadFile = (buffer, name, type) => {
 
 app.post("/upload", async function (req, res) {
     // Add your code here
+    res.json({ success: "post call succeed!", url: req.url, body: req.body });
+
     try {
         const user = req.body.email;
         const path = req.body.filepath;

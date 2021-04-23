@@ -7,6 +7,8 @@ import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
 
 Amplify.configure(awsconfig);
+Amplify.register(Auth);
+Amplify.register(API);
 
 const createClient = async () => {
     const credentials = await Auth.currentCredentials();
@@ -21,7 +23,10 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta
+                    name='viewport'
+                    content='width=device-width, initial-scale=1.0'
+                />
             </Head>
             <Component {...pageProps} />
         </>
