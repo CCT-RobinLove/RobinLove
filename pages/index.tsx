@@ -7,16 +7,16 @@ function Home() {
     const [test, setTest] = useState("default test");
     useEffect(() => {
         console.log("reeee");
-        API.get("test2Api", "/test2", {}).then((r) => {
+        API.get("testTokyoApi", "/testTokyo1", {}).then((r) => {
             console.log("API Called finished 2");
             console.log(r);
         });
     }, []);
     return (
-        <div className="">
+        <div className=''>
             <Head>
                 <title>RobinLove</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel='icon' href='/favicon.ico' />
             </Head>
             <AmplifySignOut />
             <div>{test}</div>
