@@ -14,15 +14,15 @@
         },
     
     
-          "functiontest2LambdaName": {
+          "functiontestTokyoLambdaName": {
             "Type": "String",
-            "Default": "functiontest2LambdaName"
+            "Default": "functiontestTokyoLambdaName"
           },
         
           
-          "functiontest2LambdaArn": {
+          "functiontestTokyoLambdaArn": {
             "Type": "String",
-            "Default": "functiontest2LambdaArn"
+            "Default": "functiontestTokyoLambdaArn"
           }
         
           
@@ -41,13 +41,13 @@
     },
     "Resources": {
         
-        "PolicyAPIGWtest2Apiauth": {
+        "PolicyAPIGWtestTokyoApiauth": {
             "DependsOn": [
-              "test2Api"
+              "testTokyoApi"
             ],
             "Type": "AWS::IAM::Policy",
             "Properties": {
-              "PolicyName": "PolicyAPIGWtest2Apiauth",
+              "PolicyName": "PolicyAPIGWtestTokyoApiauth",
               "Roles": [
                 {"Ref": "authRoleName"}
               ],
@@ -77,7 +77,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -90,7 +90,7 @@
                               ]
                             },
                               "/POST",
-                            "/test2/*"
+                            "/testTokyo1/*"
                           ]
                         ]
                       },
@@ -108,7 +108,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -121,7 +121,7 @@
                               ]
                             },
                               "/POST",
-                            "/test2"
+                            "/testTokyo1"
                           ]
                         ]
                       }
@@ -143,7 +143,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -156,7 +156,7 @@
                               ]
                             },
                               "/GET",
-                            "/test2/*"
+                            "/testTokyo1/*"
                           ]
                         ]
                       },
@@ -174,7 +174,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -187,7 +187,7 @@
                               ]
                             },
                               "/GET",
-                            "/test2"
+                            "/testTokyo1"
                           ]
                         ]
                       }
@@ -209,7 +209,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -222,7 +222,7 @@
                               ]
                             },
                               "/PUT",
-                            "/test2/*"
+                            "/testTokyo1/*"
                           ]
                         ]
                       },
@@ -240,7 +240,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -253,7 +253,7 @@
                               ]
                             },
                               "/PUT",
-                            "/test2"
+                            "/testTokyo1"
                           ]
                         ]
                       }
@@ -275,7 +275,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -288,7 +288,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/test2/*"
+                            "/testTokyo1/*"
                           ]
                         ]
                       },
@@ -306,7 +306,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -319,7 +319,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/test2"
+                            "/testTokyo1"
                           ]
                         ]
                       }
@@ -341,7 +341,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -354,7 +354,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/test2/*"
+                            "/testTokyo1/*"
                           ]
                         ]
                       },
@@ -372,7 +372,7 @@
                             },
                             ":",
                             {
-                              "Ref": "test2Api"
+                              "Ref": "testTokyoApi"
                             },
                             "/",
                             {
@@ -385,7 +385,7 @@
                               ]
                             },
                               "/DELETE",
-                            "/test2"
+                            "/testTokyo1"
                           ]
                         ]
                       }
@@ -405,16 +405,16 @@
         
         
         
-      "test2Api": {
+      "testTokyoApi": {
         "Type": "AWS::ApiGateway::RestApi",
         "Properties": {
           "Description": "",
-          "Name": "test2Api",
+          "Name": "testTokyoApi",
           "Body": {
             "swagger": "2.0",
             "info": {
               "version": "2018-05-24T17:52:00Z",
-              "title": "test2Api"
+              "title": "testTokyoApi"
             },
             "host": {
                 "Fn::Join": [
@@ -450,7 +450,7 @@
             ],
             "paths": {
               
-              "/test2": {
+              "/testTokyo1": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -542,7 +542,7 @@
                             
                             {
                                 
-                                "Ref": "functiontest2LambdaArn"
+                                "Ref": "functiontestTokyoLambdaArn"
                             },
                             
                             "/invocations"
@@ -555,7 +555,7 @@
                   }
                 }
               },
-              "/test2/{proxy+}": {
+              "/testTokyo1/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -647,7 +647,7 @@
                           
                           {
                             
-                            "Ref": "functiontest2LambdaArn"
+                            "Ref": "functiontestTokyoLambdaArn"
                           },
                           
                           "/invocations"
@@ -704,12 +704,12 @@
                   
         
         
-        "functiontest2LambdaPermissiontest2Api": {
+        "functiontestTokyoLambdaPermissiontestTokyoApi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
                 "FunctionName": 
                     {
-                        "Ref":  "functiontest2LambdaName"
+                        "Ref":  "functiontestTokyoLambdaName"
                     },
                     
                     "Action": "lambda:InvokeFunction",
@@ -728,7 +728,7 @@
                             },
                             ":",
                             {
-                                "Ref": "test2Api"
+                                "Ref": "testTokyoApi"
                             },
                             "/*/*/*"
                         ]
@@ -739,7 +739,7 @@
         
         
         
-      "DeploymentAPIGWtest2Api": {
+      "DeploymentAPIGWtestTokyoApi": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",
@@ -753,7 +753,7 @@
             ]
           },
           "RestApiId": {
-            "Ref": "test2Api"
+            "Ref": "testTokyoApi"
           }
         }
       }
@@ -761,15 +761,15 @@
     "Outputs": {
         "RootUrl": {
             "Description": "Root URL of the API gateway",
-            "Value": {"Fn::Join": ["", ["https://", {"Ref": "test2Api"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
+            "Value": {"Fn::Join": ["", ["https://", {"Ref": "testTokyoApi"}, ".execute-api.", {"Ref": "AWS::Region"}, ".amazonaws.com/", {"Fn::If": ["ShouldNotCreateEnvResources","Prod", {"Ref": "env"} ]}]]}
         },
         "ApiName": {
           "Description": "API Friendly name",
-          "Value": "test2Api"
+          "Value": "testTokyoApi"
         },
         "ApiId": {
           "Description": "API ID (prefix of API URL)",
-          "Value": {"Ref": "test2Api"}
+          "Value": {"Ref": "testTokyoApi"}
         }
     }
   }

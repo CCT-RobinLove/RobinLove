@@ -1,8 +1,8 @@
 {
     "paths": [
         {
-            "name": "/test2",
-            "lambdaFunction": "test2Lambda",
+            "name": "/testTokyo1",
+            "lambdaFunction": "testTokyoLambda",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -13,26 +13,26 @@
                     "/DELETE"
                 ]
             },
-            "policyResourceName": "/test2"
+            "policyResourceName": "/testTokyo1"
         }
     ],
-    "resourceName": "test2Api",
-    "apiName": "test2Api",
+    "resourceName": "testTokyoApi",
+    "apiName": "testTokyoApi",
     "functionArns": [
         {
-            "lambdaFunction": "test2Lambda"
+            "lambdaFunction": "testTokyoLambda"
         }
     ],
     "privacy": {
         "auth": 1,
         "unauth": 0,
-        "authRoleName": "amplify-cctrobinlove-dev-160331-authRole",
-        "unAuthRoleName": "amplify-cctrobinlove-dev-160331-unauthRole"
+        "authRoleName": "amplify-robinlove-devtokyo-150527-authRole",
+        "unAuthRoleName": "amplify-robinlove-devtokyo-150527-unauthRole"
     },
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "test2Lambda",
+            "resourceName": "testTokyoLambda",
             "attributes": [
                 "Name",
                 "Arn"
