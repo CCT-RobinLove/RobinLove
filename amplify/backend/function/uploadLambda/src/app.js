@@ -114,15 +114,15 @@ app.put("/upload/*", function (req, res) {
  * Example delete method *
  ****************************/
 
-app.delete("/upload", function (req, res) {
-    // Add your code here
-    res.json({ success: "delete call succeed!", url: req.url });
-});
+// app.delete("/upload", function (req, res) {
+//     // Add your code here
+//     res.json({ success: "delete call succeed!", url: req.url });
+// });
 
-app.delete("/upload/*", function (req, res) {
-    // Add your code here
-    res.json({ success: "delete call succeed!", url: req.url });
-});
+// app.delete("/upload/*", function (req, res) {
+//     // Add your code here
+//     res.json({ success: "delete call succeed!", url: req.url });
+// });
 
 app.listen(3000, function () {
     console.log("App started");
