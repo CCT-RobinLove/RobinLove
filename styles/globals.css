@@ -1,3 +1,7 @@
+:root {
+  --primary: #f62681;
+}
+
 html,
 body {
   scroll-behavior: smooth;
@@ -5,4 +9,8 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+.bg-primary {
+  background-color: var(--primary);
 }
