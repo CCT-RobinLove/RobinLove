@@ -3,9 +3,9 @@ import React from "react";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import Amplify, { API } from "aws-amplify";
-// import awsconfig from "../src/aws-exports";
+import awsconfig from "../src/aws-exports";
 
-// Amplify.configure(awsconfig);
+Amplify.configure(awsconfig);
 
 function MyApp({ Component, pageProps }) {
     return (
