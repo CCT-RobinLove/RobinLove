@@ -38,7 +38,7 @@ const s3bucket = new AWS.S3({
     secretAccessKey: IAM_USER_SECRET,
 });
 
-// Dynamo
+// DynamoDB
 
 /**********************
  * Example get method *
