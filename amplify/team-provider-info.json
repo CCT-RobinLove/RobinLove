@@ -23,6 +23,10 @@
         "test2Lambda": {
           "deploymentBucketName": "amplify-cctrobinlove-dev-160331-deployment",
           "s3Key": "amplify-builds/test2Lambda-464663564f2f44324947-build.zip"
+        },
+        "test3Lambda": {
+          "deploymentBucketName": "amplify-cctrobinlove-dev-160331-deployment",
+          "s3Key": "amplify-builds/test3Lambda-777a77584b7937512b65-build.zip"
         }
       }
     }

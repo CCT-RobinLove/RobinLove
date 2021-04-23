@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/test3",
+            "lambdaFunction": "test3Lambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/test3"
+        }
+    ],
+    "resourceName": "test3Api",
+    "apiName": "test3Api",
+    "functionArns": [
+        {
+            "lambdaFunction": "test3Lambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-cctrobinlove-dev-160331-authRole",
+        "unAuthRoleName": "amplify-cctrobinlove-dev-160331-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "test3Lambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
