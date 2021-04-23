@@ -1,0 +1,42 @@
+{
+    "paths": [
+        {
+            "name": "/upload",
+            "lambdaFunction": "uploadLambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            },
+            "policyResourceName": "/upload"
+        }
+    ],
+    "resourceName": "uploadApi",
+    "apiName": "uploadApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "uploadLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-robinlove-devtokyo-150527-authRole",
+        "unAuthRoleName": "amplify-robinlove-devtokyo-150527-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "uploadLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
