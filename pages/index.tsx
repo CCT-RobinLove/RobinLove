@@ -24,7 +24,7 @@ function Home() {
 
     useEffect(() => {
         console.log("reeee");
-        API.get("uploadApi", "/upload", payload).then((r) => {
+        API.post("uploadApi", "/upload", payload).then((r) => {
             console.log("API Called finished 2");
             console.log(r);
         });
