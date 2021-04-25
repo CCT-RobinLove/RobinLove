@@ -14,3 +14,16 @@ body {
 .bg-primary {
   background-color: var(--primary);
 }
+
+#__next {
+  height: 100%;
+}
+
+#avatar-uploader .ant-upload-picture-card-wrapper {
+  width: auto !important;
+}
+
+#avatar-uploader .ant-upload.ant-upload-select-picture-card {
+  width: 240px;
+  height: 240px;
+}

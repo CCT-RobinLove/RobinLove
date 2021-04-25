@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^1.0.7",
     "@types/axios": "^0.14.0",
+    "antd": "^4.15.2",
     "aws-amplify": "^3.3.27",
     "aws-sdk": "^2.891.0",
     "axios": "^0.21.1",

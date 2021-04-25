@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import Amplify, { API, Auth } from "aws-amplify";
 import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
+import 'antd/dist/antd.css';
 
 Amplify.configure(awsconfig);
 
