@@ -11,7 +11,6 @@ const trackerName = "robinlovegeotracker"; // HERE GOES THE NAME OF  YOUR TRACKE
 const deviceID = "ExampleDevice-4"; // HERE IT GOES THE NAME OF YOUR DEVICE
 
 function Locate() {
-    const [test, setTest] = useState("default test");
     const [client, setClient] = useState(null);
     const [devPosMarkers, setDevPosMarkers] = useState([]);
 
@@ -70,41 +69,9 @@ function Locate() {
         });
     };
 
-    const addGmail = () => {
-        API.post("alarms", "/alarms", {
-            body: {
-                mail_to: "mail1",
-                mail_from: "mail2",
-            },
-        }).then((r) => {
-            console.log("API addGmail finished");
-            console.log(r);
-        });
-
-        const uploadBody = {
-            body: {
-                email: "test2@fmail.com",
-                imgName: "test.jpg",
-                imgContent: "kfjdsklafjldsjfkldsjfioewjiorujeiwokj",
-            },
-        };
-
-        API.post("uploadz", "/uploadz", uploadBody).then((r) => {
-            console.log("API uploadz finished");
-            console.log(r);
-        });
-    };
-
-    const listGmail = () => {
-        API.get("alarms", "/alarms/mail1", {}).then((r) => {
-            console.log("API listGmail finished");
-            console.log(r);
-        });
-
-        API.get("uploadz", "/uploadz/mail1", {}).then((r) => {
-            console.log("API uploadz finished");
-            console.log(r);
-        });
+    const test1 = () => {
+        console.log("devPosMarkers", devPosMarkers);
+        console.log("viewport", viewport);
     };
 
     return (
@@ -114,9 +81,9 @@ function Locate() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <h1>Alert Page</h1>
-            <button onClick={addGmail}>{"addGmail"}</button>
-            <button onClick={listGmail}>{"listGmail"}</button>
-            <div>{test}</div>
+            <button onClick={test1}>{"test1"}</button>
+            <hr/>
+            <button onClick={test1}>{"test1"}</button>
         </div>
     );
 }

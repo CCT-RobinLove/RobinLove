@@ -1,5 +1,0 @@
-{
-    "tableName": "uploadz",
-    "partitionKeyName": "email",
-    "partitionKeyType": "S"
-}

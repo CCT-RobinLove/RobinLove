@@ -3,18 +3,6 @@
 
 const awsmobile = {
     "aws_project_region": "ap-northeast-1",
-    "aws_cloud_logic_custom": [
-        {
-            "name": "alarms",
-            "endpoint": "https://wjaovy55hf.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
-            "region": "ap-northeast-1"
-        },
-        {
-            "name": "uploadz",
-            "endpoint": "https://24as10d15a.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
-            "region": "ap-northeast-1"
-        }
-    ],
     "aws_cognito_identity_pool_id": "ap-northeast-1:12ed0bb0-2d32-4b90-9d82-9eaab94c1852",
     "aws_cognito_region": "ap-northeast-1",
     "aws_user_pools_id": "ap-northeast-1_owRVrumkQ",
