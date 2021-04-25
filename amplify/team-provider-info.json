@@ -12,14 +12,14 @@
       "AmplifyAppId": "d2uwbzpigdvc7j"
     },
     "categories": {
-      "function": {
-        "testTokyoLambda": {
-          "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/testTokyoLambda-7a474777534b4b4c6341-build.zip"
-        }
-      },
       "auth": {
         "cctrobinlovefcd9f192": {}
+      },
+      "function": {
+        "uploadLambda": {
+          "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
+          "s3Key": "amplify-builds/uploadLambda-6f6b35584344722b7455-build.zip"
+        }
       }
     }
   }

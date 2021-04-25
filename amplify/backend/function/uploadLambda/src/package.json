@@ -1,14 +1,17 @@
 {
-  "name": "testTokyoLambda",
+  "name": "uploadLambda",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.891.0",
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "file-type": "^16.3.0",
+    "fs": "*",
+    "multiparty": "^4.2.2"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

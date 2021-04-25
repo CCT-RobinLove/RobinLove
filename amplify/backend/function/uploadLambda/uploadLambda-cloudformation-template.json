@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "testTokyoLambda",
+            "uploadLambda",
             {
               "Fn::Join": [
                 "",
                 [
-                  "testTokyoLambda",
+                  "uploadLambda",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "robinloveLambdaRolee6838d26",
+            "robinloveLambdaRole6b460db3",
             {
               "Fn::Join": [
                 "",
                 [
-                  "robinloveLambdaRolee6838d26",
+                  "robinloveLambdaRole6b460db3",
                   "-",
                   {
                     "Ref": "env"

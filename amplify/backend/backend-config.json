@@ -1,19 +1,19 @@
 {
   "function": {
-    "testTokyoLambda": {
+    "uploadLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "api": {
-    "testTokyoApi": {
+    "uploadApi": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "testTokyoLambda",
+          "resourceName": "uploadLambda",
           "attributes": [
             "Name",
             "Arn"
@@ -29,5 +29,6 @@
       "dependsOn": [],
       "customAuth": false
     }
-  }
+  },
+  "storage": {}
 }

@@ -1,8 +1,8 @@
 {
     "paths": [
         {
-            "name": "/testTokyo1",
-            "lambdaFunction": "testTokyoLambda",
+            "name": "/upload",
+            "lambdaFunction": "uploadLambda",
             "privacy": {
                 "private": true,
                 "auth": [
@@ -13,14 +13,14 @@
                     "/DELETE"
                 ]
             },
-            "policyResourceName": "/testTokyo1"
+            "policyResourceName": "/upload"
         }
     ],
-    "resourceName": "testTokyoApi",
-    "apiName": "testTokyoApi",
+    "resourceName": "uploadApi",
+    "apiName": "uploadApi",
     "functionArns": [
         {
-            "lambdaFunction": "testTokyoLambda"
+            "lambdaFunction": "uploadLambda"
         }
     ],
     "privacy": {
@@ -32,7 +32,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "testTokyoLambda",
+            "resourceName": "uploadLambda",
             "attributes": [
                 "Name",
                 "Arn"

@@ -4,6 +4,8 @@ import Amplify, { API } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { createClient } from "./_app";
 
+const path = require("path");
+
 function Home() {
     const [test, setTest] = useState("default test");
     const params = {
@@ -11,16 +13,26 @@ function Home() {
         Text: "Indianapolis",
     };
 
+    // To delete later...
+    const filepath = path.resolve("public", "test.jpg");
+    const payload = {
+        body: {
+            email: "test@fmail.com",
+            filepath: filepath,
+        },
+        headers: {},
+    };
+
     useEffect(() => {
         console.log("reeee");
-        API.get("testTokyoApi", "/testTokyo1", {}).then((r) => {
+        API.post("uploadApi", "/upload", payload).then((r) => {
             console.log("API Called finished 2");
             console.log(r);
         });
 
         createClient().then((client) =>
             client.searchPlaceIndexForText(params, (err, data) => {
-                console.log('finish search place index');
+                console.log("finish search place index");
                 if (err) console.error(err);
                 if (data) console.log(data);
             })
