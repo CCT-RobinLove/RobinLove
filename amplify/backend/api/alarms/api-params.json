@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/alarms",
+            "lambdaFunction": "alarmsLambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/alarms"
+        }
+    ],
+    "resourceName": "alarms",
+    "apiName": "alarms",
+    "functionArns": [
+        {
+            "lambdaFunction": "alarmsLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-robinlove-devtokyo-150527-authRole",
+        "unAuthRoleName": "amplify-robinlove-devtokyo-150527-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "alarmsLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

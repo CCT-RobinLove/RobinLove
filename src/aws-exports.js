@@ -5,8 +5,13 @@ const awsmobile = {
     "aws_project_region": "ap-northeast-1",
     "aws_cloud_logic_custom": [
         {
-            "name": "uploadApi",
-            "endpoint": "https://cz9w4o8csg.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "name": "alarms",
+            "endpoint": "https://wjaovy55hf.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "region": "ap-northeast-1"
+        },
+        {
+            "name": "uploadz",
+            "endpoint": "https://24as10d15a.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
             "region": "ap-northeast-1"
         }
     ],
@@ -27,7 +32,18 @@ const awsmobile = {
         "redirectSignOut": "https://master.d2uwbzpigdvc7j.amplifyapp.com/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_dynamodb_all_tables_region": "ap-northeast-1",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "alarms-devtokyo",
+            "region": "ap-northeast-1"
+        },
+        {
+            "tableName": "uploadz-devtokyo",
+            "region": "ap-northeast-1"
+        }
+    ]
 };
 
 

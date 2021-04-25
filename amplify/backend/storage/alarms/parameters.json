@@ -1,0 +1,7 @@
+{
+    "tableName": "alarms",
+    "partitionKeyName": "mail_to",
+    "partitionKeyType": "S",
+    "sortKeyName": "mail_from",
+    "sortKeyType": "S"
+}
