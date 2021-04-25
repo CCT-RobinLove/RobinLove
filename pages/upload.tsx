@@ -1,6 +1,7 @@
 import React from "react"
 import Header from "../components/Header"
 import ImageUploader from "../components/ImageUploader"
+import Link from "next/link"
 
 export default function Upload(props) {
   return (
@@ -12,9 +13,11 @@ export default function Upload(props) {
           <ImageUploader></ImageUploader>
         </div>
 
-        <button className="bg-primary rounded text-white text-center p-2 text-lg" style={{width: 240}}>
-          Continue
-        </button>
+        <Link href="/match">
+          <button className="bg-primary rounded text-white text-center p-2 text-lg" style={{width: 240}}>
+            Continue
+          </button>
+        </Link>
       </div>
     </div>
   )

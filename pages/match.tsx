@@ -26,7 +26,8 @@ export default function Match(props) {
                 marginRight: 16,
               }}
             ></img>
-            <div className="text-lg">Chomtana</div>
+            <div className="text-lg flex-grow">Chomtana</div>
+            <div className="text-xl">&gt;</div>
           </div>
         </div>
       </div>
