@@ -5,13 +5,18 @@ const awsmobile = {
     "aws_project_region": "ap-northeast-1",
     "aws_cloud_logic_custom": [
         {
-            "name": "alarms",
-            "endpoint": "https://wjaovy55hf.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "name": "upload2",
+            "endpoint": "https://2i438ui4ql.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
             "region": "ap-northeast-1"
         },
         {
-            "name": "uploadz",
-            "endpoint": "https://24as10d15a.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "name": "alert2",
+            "endpoint": "https://iop579pd7f.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
+            "region": "ap-northeast-1"
+        },
+        {
+            "name": "accept2",
+            "endpoint": "https://uivs4mccob.execute-api.ap-northeast-1.amazonaws.com/devtokyo",
             "region": "ap-northeast-1"
         }
     ],
@@ -36,14 +41,20 @@ const awsmobile = {
     "aws_dynamodb_all_tables_region": "ap-northeast-1",
     "aws_dynamodb_table_schemas": [
         {
-            "tableName": "alarms-devtokyo",
+            "tableName": "upload2Table-devtokyo",
             "region": "ap-northeast-1"
         },
         {
-            "tableName": "uploadz-devtokyo",
+            "tableName": "alert2Table-devtokyo",
+            "region": "ap-northeast-1"
+        },
+        {
+            "tableName": "accept2Table-devtokyo",
             "region": "ap-northeast-1"
         }
-    ]
+    ],
+    "aws_user_files_s3_bucket": "upload2-s3150527-devtokyo",
+    "aws_user_files_s3_bucket_region": "ap-northeast-1"
 };
 
 

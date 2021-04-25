@@ -6,7 +6,7 @@ import Amplify, { API, Auth, PubSub } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
 import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 
 // global.WebSocket = require('ws');
 // Amplify.addPluggable(
@@ -17,23 +17,22 @@ import 'antd/dist/antd.css';
 // );
 
 Amplify.configure(awsconfig);
-Amplify.register(Auth);
-Amplify.register(API);
+// Amplify.register(Auth);
+// Amplify.register(API);
 
+// Auth.currentCredentials().then((creds) => {
+//     console.log(`creds`, creds)
+//     // const cognitoIdentityId = info.IdentityId;
+// });
 
-Auth.currentCredentials().then((creds) => {
-    console.log(`creds`, creds)
-    // const cognitoIdentityId = info.IdentityId;
-});
+// Auth.currentAuthenticatedUser().then((user) => {
+//     console.log(`user`, user)
+//     // const email = user.attributes.email;
+// });
 
-Auth.currentAuthenticatedUser().then((user) => {
-    console.log(`user`, user)
-    // const email = user.attributes.email;
-});
-
-Auth.currentSession().then((session) => {
-    console.log(`session`, session)
-});
+// Auth.currentSession().then((session) => {
+//     console.log(`session`, session)
+// });
 
 const createClient = async () => {
     const credentials = await Auth.currentCredentials();
@@ -48,7 +47,10 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta
+                    name='viewport'
+                    content='width=device-width, initial-scale=1.0'
+                />
             </Head>
             <Component {...pageProps} />
         </>

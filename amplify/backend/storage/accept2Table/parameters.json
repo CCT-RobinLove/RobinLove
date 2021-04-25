@@ -1,0 +1,5 @@
+{
+    "tableName": "accept2Table",
+    "partitionKeyName": "accepted_mail",
+    "partitionKeyType": "S"
+}

@@ -15,28 +15,29 @@ function Home() {
 
     // To delete later...
     const filepath = path.resolve("public", "test.jpg");
+
     const payload = {
         body: {
-            email: "test@fmail.com",
-            filepath: filepath,
+            message: "I love you, I wanna fuck you so much yayaya",
+            phoneNumber: "+66848753988",
         },
         headers: {},
     };
 
     useEffect(() => {
         console.log("reeee");
-        API.post("uploadApi", "/upload", payload).then((r) => {
+        API.post("accept2", "/accept2", payload).then((r) => {
             console.log("API Called finished 2");
             console.log(r);
         });
 
-        createClient().then((client) =>
-            client.searchPlaceIndexForText(params, (err, data) => {
-                console.log("finish search place index");
-                if (err) console.error(err);
-                if (data) console.log(data);
-            })
-        );
+        // createClient().then((client) =>
+        //     client.searchPlaceIndexForText(params, (err, data) => {
+        //         console.log("finish search place index");
+        //         if (err) console.error(err);
+        //         if (data) console.log(data);
+        //     })
+        // );
     }, []);
     return (
         <div className=''>
