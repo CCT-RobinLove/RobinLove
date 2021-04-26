@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState } from "react";
 import Header from "../components/Header";
 import ImageUploader from "../components/ImageUploader";
@@ -29,24 +30,26 @@ export default function Match(props) {
 
         <div className="flex flex-col w-full">
           {matches.map(match => 
-            <div
-              className="flex py-3 items-center"
-              style={{
-                borderBottom: "1px solid gray",
-              }}
-            >
-              <img
-                src={match.avatar}
+            <Link href={"/call?email=" + match.name}>
+              <div
+                className="flex py-3 items-center cursor-pointer"
                 style={{
-                  width: 32,
-                  height: 32,
-                  objectFit: "cover",
-                  marginRight: 16,
+                  borderBottom: "1px solid gray",
                 }}
-              ></img>
-              <div className="text-lg flex-grow">{match.name}</div>
-              <div className="text-xl">&gt;</div>
-            </div>
+              >
+                <img
+                  src={match.avatar}
+                  style={{
+                    width: 64,
+                    height: 64,
+                    objectFit: "cover",
+                    marginRight: 16,
+                  }}
+                ></img>
+                <div className="text-lg flex-grow">{match.name}</div>
+                <div className="text-xl">&gt;</div>
+              </div>
+            </Link>
           )}
         </div>
       </div>
