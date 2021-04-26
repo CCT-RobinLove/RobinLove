@@ -30,7 +30,7 @@ export default function Match(props) {
 
         <div className="flex flex-col w-full">
           {matches.map(match => 
-            <Link href={"/call?email=" + match.name}>
+            <Link href="/matching">
               <div
                 className="flex py-3 items-center cursor-pointer"
                 style={{
