@@ -80,25 +80,75 @@ const convertUrlType = (param, type) => {
 };
 
 app.post(path, async function (req, res) {
-    const SNS = new AWS.SNS({ apiVersion: "2010-03-31" });
+    const SES = new AWS.SES({ apiVersion: "2010-12-01" });
     const body = req.body;
-    if (!body || !body.phoneNumber || !body.message) {
+    if (
+        !body ||
+        !body.subject ||
+        !body.acceptor_email ||
+        !body.acceptee_email ||
+        !body.message
+    ) {
         res.statusCode = 400;
         res.json({ error: "malformed body" });
         return "ERROR";
     }
-    const AttributeParams = {
-        attributes: {
-            DefaultSMSType: "alarm",
-        },
-    };
-    const messageParams = {
-        Message: body.message,
-        PhoneNumber: body.phoneNumber,
-    };
+
+    const charset = "UTF-8"; // encoding
+
     try {
+        var params = {
+            Destination: {
+                /* required */
+                // CcAddresses: [
+                //     body.email,
+                //     /* more items */
+                // ],
+                ToAddresses: [
+                    body.acceptee_email,
+                    body.acceptor_email,
+                    /* more items */
+                ],
+            },
+            Message: {
+                Subject: {
+                    Data: body.subject,
+                    Charset: charset,
+                },
+                /* required */
+                Body: {
+                    /* required */
+                    // Html: {
+                    //     Charset: "UTF-8",
+                    //     Data: "HTML_FORMAT_BODY",
+                    // },
+                    Text: {
+                        Charset: charset,
+                        Data: body.message,
+                    },
+                },
+                Subject: {
+                    Charset: "UTF-8",
+                    Data: "Test email",
+                },
+            },
+            Source: "masketbeatz@gmail.com" /* required */,
+        };
+
+        // const AttributeParams = {
+        //     attributes: {
+        //         DefaultSMSType: "alarm",
+        //     },
+        // };
+        // const messageParams = {
+        //     Message: body.message,
+        //     PhoneNumber: body.phoneNumber,
+        // };
+
+        let data = await SES.sendEmail(params).promise();
         // await SNS.setSMSAttributes(AttributeParams).promise();
-        await SNS.publish(messageParams).promise();
+        // await SNS.publish(messageParams).promise();
+        console.log(data);
     } catch (err) {
         res.statusCode = 500;
         console.log("sns error:", err);

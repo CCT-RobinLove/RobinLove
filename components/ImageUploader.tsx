@@ -57,7 +57,7 @@ export default class ImageUploader extends React.Component {
                         console.log(payload);
 
                         API.post("upload2", "/upload2", payload).then((r) => {
-                            console.log("API Called finished 2");
+                            console.log("API Called add image finished");
                             console.log(r);
                         });
                     }

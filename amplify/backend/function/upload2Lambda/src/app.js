@@ -36,7 +36,7 @@ const hashKeyPath = "/:" + partitionKeyName;
 const sortKeyPath = hasSortKey ? "/:" + sortKeyName : "";
 // declare a new express app
 var app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "2gb" }));
 app.use(awsServerlessExpressMiddleware.eventContext());
 
 // Enable CORS for all methods
@@ -65,6 +65,27 @@ const BUCKET_NAME = process.env.BUCKET_NAME;
 console.log("Region:", process.env.TABLE_REGION);
 console.log("Table name:", tableName);
 console.log("Bucket name:", BUCKET_NAME);
+
+app.get(path, async function (req, res) {
+    var err = null;
+    const data = await dynamodb
+        .scan({ TableName: tableName })
+        .promise()
+        .catch((e) => (err = e));
+
+    if (err) {
+        res.statusCode = 500;
+        res.json({
+            message: "ddb scan error",
+            error: { err },
+        });
+    } else {
+        res.json({
+            message: "scan call succeed!",
+            data: data,
+        });
+    }
+});
 
 app.get(path + hashKeyPath, function (req, res) {
     var condition = {};
@@ -126,6 +147,7 @@ app.post(path, async function (req, res) {
         Body: base64Data,
         ContentEncoding: "base64", // required
         ContentType: `image/${type}`, // required. Notice the back ticks
+        ACL: "public-read",
     };
 
     console.log("s3 params:", s3Params);
@@ -133,6 +155,11 @@ app.post(path, async function (req, res) {
     try {
         let s3data = await s3.upload(s3Params).promise();
         console.log("Uploaded to s3 success naja:", s3data);
+
+        let verifyEmailData = await new AWS.SES({ apiVersion: "2010-12-01" })
+            .verifyEmailIdentity({ EmailAddress: req.body.email })
+            .promise();
+        console.log(verifyEmailData);
     } catch (err) {
         res.statusCode = 500;
         console.log("err(s3):", err);

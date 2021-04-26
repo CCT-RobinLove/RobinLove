@@ -34,7 +34,7 @@
         },
         "upload2Lambda": {
           "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/upload2Lambda-485a7a37453754383270-build.zip"
+          "s3Key": "amplify-builds/upload2Lambda-6f4a6e51743846536377-build.zip"
         },
         "alert2Lambda": {
           "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
@@ -42,7 +42,7 @@
         },
         "accept2Function": {
           "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/accept2Function-73725531553036774274-build.zip"
+          "s3Key": "amplify-builds/accept2Function-726d4b52626e75575a6e-build.zip"
         }
       }
     }

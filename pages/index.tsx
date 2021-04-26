@@ -20,42 +20,46 @@ function Home() {
 
     const payload = {
         body: {
+            subject: "You found a match! Prepare before battle...",
             message: "I love you, I wanna fuck you so much yayaya",
-            phoneNumber: "+66848753988",
+            acceptor_email: "masketbeatz@gmail.com",
+            acceptee_email: "nedrah1337@gmail.com",
         },
         headers: {},
     };
 
-    useEffect(() => {
-        console.log("reeee");
-        API.post("accept2", "/accept2", payload).then((r) => {
-            console.log("API Called finished 2");
-            console.log(r);
-        });
+    // useEffect(() => {
+    //     console.log("reeee");
+    //     API.post("accept2", "/accept2", payload).then((r) => {
+    //         console.log("API Called finished 2");
+    //         console.log(r);
+    //     });
 
-        // createClient().then((client) =>
-        //     client.searchPlaceIndexForText(params, (err, data) => {
-        //         console.log("finish search place index");
-        //         if (err) console.error(err);
-        //         if (data) console.log(data);
-        //     })
-        // );
-    }, []);
+    //     // createClient().then((client) =>
+    //     //     client.searchPlaceIndexForText(params, (err, data) => {
+    //     //         console.log("finish search place index");
+    //     //         if (err) console.error(err);
+    //     //         if (data) console.log(data);
+    //     //     })
+    //     // );
+    // }, []);
     return (
         <div className='h-full'>
             <Head>
                 <title>RobinLove</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
-            
-            <div className="flex flex-col h-full">
+
+            <div className='flex flex-col h-full'>
                 <div>
                     <Header></Header>
                 </div>
-                <div className="flex-grow flex justify-center items-center">
+                <div className='flex-grow flex justify-center items-center'>
                     <div>
-                        <Link href="/upload">
-                            <button className="bg-primary rounded text-white text-center p-2 text-lg" style={{width: 240}}>
+                        <Link href='/upload'>
+                            <button
+                                className='bg-primary rounded text-white text-center p-2 text-lg'
+                                style={{ width: 240 }}>
                                 Start Matching Now!
                             </button>
                         </Link>
@@ -63,7 +67,6 @@ function Home() {
                 </div>
                 <AmplifySignOut />
             </div>
-
         </div>
     );
 }

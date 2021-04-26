@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
-import Amplify, { API, Auth, PubSub } from "aws-amplify";
+import Amplify, { API, Auth, PubSub, Storage } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
 import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
@@ -47,11 +47,14 @@ const createClient = async () => {
 };
 
 function MyApp({ Component, pageProps }) {
-    useUpdateLocation();
+    // useUpdateLocation();
     return (
         <>
             <Head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta
+                    name='viewport'
+                    content='width=device-width, initial-scale=1.0'
+                />
             </Head>
             <Component {...pageProps} />
         </>
