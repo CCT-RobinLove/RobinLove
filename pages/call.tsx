@@ -18,11 +18,11 @@ export default function Call(props) {
   
         <div className="flex flex-row justify-around w-full">
           <div className="cursor-pointer">
-            <img src="/accept.png" style={{width: 64, height: 64}}></img>
+            <img src="/accept.png" style={{width: 96, height: 96}}></img>
           </div>
   
           <div className="cursor-pointer">
-            <img src="/reject.png" style={{width: 64, height: 64}}></img>
+            <img src="/reject.png" style={{width: 96, height: 96}}></img>
           </div>
         </div>
       </div>
