@@ -47,7 +47,7 @@ const createClient = async () => {
 };
 
 function MyApp({ Component, pageProps }) {
-    // useUpdateLocation();
+    useUpdateLocation();
     return (
         <>
             <Head>

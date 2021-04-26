@@ -1,15 +1,20 @@
-import Amplify, { API } from "aws-amplify";
+import Amplify, { API, Auth } from "aws-amplify";
 import useInterval from "./useInterval";
 
 function updateLocation() {
     navigator.geolocation.getCurrentPosition(
-        (pos) => {
+        async (pos) => {
             const {
                 coords: { latitude, longitude },
             } = pos;
 
-            API.post("upload2", "/upload2", {
+            const {
+                attributes: { email },
+            } = await Auth.currentAuthenticatedUser();
+
+            API.put("upload2", "/upload2", {
                 body: {
+                    email,
                     lat: latitude,
                     long: longitude,
                 },
@@ -20,7 +25,7 @@ function updateLocation() {
 }
 
 export default function useUpdateLocation() {
-    useInterval(updateLocation, 30_000);
+    useInterval(updateLocation, 5_000);
 }
 
 export { updateLocation };
