@@ -23,11 +23,12 @@ const MOCK_MATCHES = [
 ];
 
 export default function Match(props) {
+    // const [matches, setMatches] = useState(MOCK_MATCHES);
     const [matches, setMatches] = useState(MOCK_MATCHES);
 
-    useEffect(() => {
-        API.get();
-    }, []);
+    // useEffect(() => {
+    //     API.get('', '', {});
+    // }, []);
 
     return (
         <div className='h-full'>

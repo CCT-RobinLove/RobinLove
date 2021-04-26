@@ -4,6 +4,7 @@ import Amplify, { API, PubSub } from "aws-amplify";
 // import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { createClient } from "./_app";
 import useInterval from "../src/useInterval";
+import { updateLocation } from "../src/useUpdateLocation";
 
 const mapName = "robintestmap"; // HERE IT GOES THE NAME OF YOUR MAP
 const indexName = "robinTestIndex"; // HERE GOES THE NAME OF YOUR PLACE INDEX
@@ -61,7 +62,7 @@ function Locate() {
 
                 const pos = tempPosMarkers.length - 1;
 
-                console.log('tempPosMarkers :>> ', tempPosMarkers);
+                console.log("tempPosMarkers :>> ", tempPosMarkers);
 
                 // setViewport({
                 //     longitude: tempPosMarkers[pos].long,
@@ -69,43 +70,6 @@ function Locate() {
                 //     zoom: 5,
                 // });
             }
-        });
-    };
-
-    const addGmail = () => {
-        API.post("alarms", "/alarms", {
-            body: {
-                mail_to: "mail1",
-                mail_from: "mail2",
-            },
-        }).then((r) => {
-            console.log("API addGmail finished");
-            console.log(r);
-        });
-
-        const uploadBody = {
-            body: {
-                email: "test2@fmail.com",
-                imgName: "test.jpg",
-                imgContent: "kfjdsklafjldsjfkldsjfioewjiorujeiwokj",
-            },
-        };
-
-        API.post("uploadz", "/uploadz", uploadBody).then((r) => {
-            console.log("API uploadz finished");
-            console.log(r);
-        });
-    };
-
-    const listGmail = () => {
-        API.get("alarms", "/alarms/mail1", {}).then((r) => {
-            console.log("API listGmail finished");
-            console.log(r);
-        });
-
-        API.get("uploadz", "/uploadz/mail1", {}).then((r) => {
-            console.log("API uploadz finished");
-            console.log(r);
         });
     };
 
@@ -118,7 +82,7 @@ function Locate() {
             <h1>Locate Page</h1>
             {/* <button onClick={test1}>{"test1"}</button> */}
             <hr />
-            <button onClick={getDevicePosition}>{"getDevicePosition"}</button>
+            <button onClick={updateLocation}>{"updateLocation"}</button>
             <hr />
             <button onClick={() => console.log("client", client)}>{"client"}</button>
             <hr />

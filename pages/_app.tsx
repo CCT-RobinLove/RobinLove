@@ -6,6 +6,7 @@ import Amplify, { API, Auth, PubSub } from "aws-amplify";
 import { AWSIoTProvider } from "@aws-amplify/pubsub";
 import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
+import useUpdateLocation from "../src/useUpdateLocation";
 import "antd/dist/antd.css";
 
 // global.WebSocket = require('ws');
@@ -46,13 +47,11 @@ const createClient = async () => {
 };
 
 function MyApp({ Component, pageProps }) {
+    // useUpdateLocation();
     return (
         <>
             <Head>
-                <meta
-                    name='viewport'
-                    content='width=device-width, initial-scale=1.0'
-                />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
             <Component {...pageProps} />
         </>

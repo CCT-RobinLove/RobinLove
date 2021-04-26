@@ -80,7 +80,7 @@ const convertUrlType = (param, type) => {
 };
 
 app.post(path, async function (req, res) {
-    const SNS = new AWS.SNS();
+    const SNS = new AWS.SNS({ apiVersion: "2010-03-31" });
     const body = req.body;
     if (!body || !body.phoneNumber || !body.message) {
         res.statusCode = 400;
