@@ -41,7 +41,7 @@ export default function Match(props) {
 
             setMatches(parsedItems);
             setIsLoading(false);
-            console.log("finish scan");
+            console.log("Finish scan");
             console.log(res);
         });
         console.log("end useEffect");
