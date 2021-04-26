@@ -18,14 +18,16 @@ function updateLocation() {
                     lat: latitude,
                     long: longitude,
                 },
-            }).then((r) => console.log(`finished update location:`, r));
+            })
+                .then((r) => console.log(`finished update location:`, r))
+                .catch((e) => console.log("failed update location"));
         },
         (err) => console.log(`err`, err)
     );
 }
 
 export default function useUpdateLocation() {
-    useInterval(updateLocation, 5_000);
+    useInterval(updateLocation, 30_000);
 }
 
 export { updateLocation };
