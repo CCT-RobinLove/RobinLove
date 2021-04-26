@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/accept2",
+            "lambdaFunction": "accept2Function",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/accept2"
+        }
+    ],
+    "resourceName": "accept2",
+    "apiName": "accept2",
+    "functionArns": [
+        {
+            "lambdaFunction": "accept2Function"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-robinlove-devtokyo-150527-authRole",
+        "unAuthRoleName": "amplify-robinlove-devtokyo-150527-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "accept2Function",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

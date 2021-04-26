@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/upload2",
+            "lambdaFunction": "upload2Lambda",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/upload2"
+        }
+    ],
+    "resourceName": "upload2",
+    "apiName": "upload2",
+    "functionArns": [
+        {
+            "lambdaFunction": "upload2Lambda"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-robinlove-devtokyo-150527-authRole",
+        "unAuthRoleName": "amplify-robinlove-devtokyo-150527-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "upload2Lambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

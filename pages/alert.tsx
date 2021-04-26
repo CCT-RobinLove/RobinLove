@@ -11,6 +11,9 @@ import { createClient } from "./_app";
 //     close: () => console.log('Done'),
 // });
 
+//file system
+// const fs = require("fs");
+
 function Alert() {
     const [test, setTest] = useState("default test");
 
@@ -31,11 +34,14 @@ function Alert() {
             console.log(r);
         });
 
+        // upload
         const uploadBody = {
             body: {
                 email: "test2@fmail.com",
-                imgName: "test.jpg",
-                imgContent: "kfjdsklafjldsjfkldsjfioewjiorujeiwokj",
+                fileName: "test.jpg",
+                fileContent: "kfjdsklafjldsjfkldsjfioewjiorujeiwokj",
+                lat: 2,
+                long: 3,
             },
         };
 
@@ -58,10 +64,10 @@ function Alert() {
     };
 
     return (
-        <div className="">
+        <div className=''>
             <Head>
                 <title>RobinLove</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel='icon' href='/favicon.ico' />
             </Head>
             <h1>Alert Page</h1>
             <button onClick={addGmail}>{"addGmail"}</button>
