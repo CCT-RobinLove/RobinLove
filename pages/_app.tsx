@@ -20,19 +20,21 @@ Amplify.configure(awsconfig);
 // Amplify.register(Auth);
 // Amplify.register(API);
 
-// Auth.currentCredentials().then((creds) => {
-//     console.log(`creds`, creds)
-//     // const cognitoIdentityId = info.IdentityId;
-// });
+if (process.browser) {
+    Auth.currentCredentials().then((creds) => {
+        console.log(`creds`, creds);
+        // const cognitoIdentityId = info.IdentityId;
+    });
 
-// Auth.currentAuthenticatedUser().then((user) => {
-//     console.log(`user`, user)
-//     // const email = user.attributes.email;
-// });
+    Auth.currentAuthenticatedUser().then((user) => {
+        console.log(`user`, user);
+        // const email = user.attributes.email;
+    });
 
-// Auth.currentSession().then((session) => {
-//     console.log(`session`, session)
-// });
+    Auth.currentSession().then((session) => {
+        console.log(`session`, session);
+    });
+}
 
 const createClient = async () => {
     const credentials = await Auth.currentCredentials();

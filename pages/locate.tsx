@@ -31,9 +31,9 @@ function Locate() {
         console.log("End useEffect");
     }, []);
 
-    useInterval(() => {
-        getDevicePosition();
-    }, 30000);
+    // useInterval(() => {
+    //     getDevicePosition();
+    // }, 30000);
 
     const getDevicePosition = () => {
         setDevPosMarkers([]);
@@ -61,11 +61,13 @@ function Locate() {
 
                 const pos = tempPosMarkers.length - 1;
 
-                setViewport({
-                    longitude: tempPosMarkers[pos].long,
-                    latitude: tempPosMarkers[pos].lat,
-                    zoom: 5,
-                });
+                console.log('tempPosMarkers :>> ', tempPosMarkers);
+
+                // setViewport({
+                //     longitude: tempPosMarkers[pos].long,
+                //     latitude: tempPosMarkers[pos].lat,
+                //     zoom: 5,
+                // });
             }
         });
     };
@@ -113,10 +115,14 @@ function Locate() {
                 <title>RobinLove</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <h1>Alert Page</h1>
-            <button onClick={addGmail}>{"addGmail"}</button>
-            <button onClick={listGmail}>{"listGmail"}</button>
-            <div>{test}</div>
+            <h1>Locate Page</h1>
+            {/* <button onClick={test1}>{"test1"}</button> */}
+            <hr />
+            <button onClick={getDevicePosition}>{"getDevicePosition"}</button>
+            <hr />
+            <button onClick={() => console.log("client", client)}>{"client"}</button>
+            <hr />
+            <button onClick={getDevicePosition}>{"getDevicePosition"}</button>
         </div>
     );
 }
