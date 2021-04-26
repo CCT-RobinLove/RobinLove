@@ -50,7 +50,7 @@ export default function Match(props) {
         return (
             <>
                 <Header />
-                <div class='w-full text-center'>
+                <div className='w-full text-center'>
                     <Spin />
                 </div>
             </>
