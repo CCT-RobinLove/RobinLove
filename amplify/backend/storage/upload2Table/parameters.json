@@ -1,0 +1,5 @@
+{
+    "tableName": "upload2Table",
+    "partitionKeyName": "email",
+    "partitionKeyType": "S"
+}
