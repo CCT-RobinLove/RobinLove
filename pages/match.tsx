@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../components/Header";
 import ImageUploader from "../components/ImageUploader";
 import { Spin } from "antd";
-import Amplify, { API } from "aws-amplify";
+import Amplify, { API, Auth } from "aws-amplify";
+import { useRouter } from "next/router";
+import EmailProvider from "../components/EmailProvider";
+import { useAcceptPoll, useAlertPoll } from "../src/usePolling";
 
 const MOCK_MATCHES = [
     {
@@ -24,17 +27,26 @@ const MOCK_MATCHES = [
 
 export default function Match(props) {
     // const [matches, setMatches] = useState(MOCK_MATCHES);
+    const router = useRouter();
     const [matches, setMatches] = useState(MOCK_MATCHES);
     const [isLoading, setIsLoading] = useState(true);
+    const { currentEmail, setCurrentEmail } = useContext(EmailProvider);
+
+    useAlertPoll(currentEmail);
 
     useEffect(() => {
         const bucket =
             "https://upload2-s3150527-devtokyo.s3-ap-northeast-1.amazonaws.com";
         console.log("start useEffect");
-        API.get("upload2", "/upload2", {}).then((res) => {
+        API.get("upload2", "/upload2", {}).then(async (res) => {
             const { Items } = res.data;
 
-            const parsedItems = Items.map(({ email, lat, long }) => ({
+            console.log("Owner Email:", currentEmail);
+
+            const filteredItems = Items.filter(({ email, lat, long }) => {
+                return email !== currentEmail;
+            });
+            const parsedItems = filteredItems.map(({ email, lat, long }) => ({
                 avatar: `${bucket}/${email}/profile.jpg`,
                 name: email,
             }));
@@ -47,11 +59,19 @@ export default function Match(props) {
         console.log("end useEffect");
     }, []);
 
+    const doMatches = async (match) => {
+        const toMatchEmail = match.name;
+
+        router.push(
+            `/matching?mail_to=${toMatchEmail}&mail_from=${currentEmail}`
+        );
+    };
+
     if (isLoading)
         return (
             <>
                 <Header />
-                <div className='w-full text-center'>
+                <div className='w-full text-center pt-16'>
                     <Spin />
                 </div>
             </>
@@ -65,9 +85,9 @@ export default function Match(props) {
                 <div className='text-3xl mb-4'>Matches</div>
 
                 <div className='flex flex-col w-full'>
-                    {matches.map((match, index) => (
+                    {matches.map((match) => (
                         <div
-                            key={index}
+                            key={match.name}
                             className='flex py-3 items-center'
                             style={{
                                 borderBottom: "1px solid gray",
@@ -83,7 +103,11 @@ export default function Match(props) {
                             <div className='text-lg flex-grow'>
                                 {match.name}
                             </div>
-                            <div className='text-xl'>&gt;</div>
+                            <div
+                                className='text-xl cursor-pointer'
+                                onClick={() => doMatches(match)}>
+                                &gt;
+                            </div>
                         </div>
                     ))}
                 </div>

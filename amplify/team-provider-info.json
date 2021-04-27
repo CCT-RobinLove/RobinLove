@@ -42,7 +42,7 @@
         },
         "accept2Function": {
           "deploymentBucketName": "amplify-robinlove-devtokyo-150527-deployment",
-          "s3Key": "amplify-builds/accept2Function-726d4b52626e75575a6e-build.zip"
+          "s3Key": "amplify-builds/accept2Function-6e6f6a52556855727a76-build.zip"
         }
       }
     }

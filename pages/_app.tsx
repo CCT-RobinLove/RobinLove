@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 import Amplify, { API, Auth, PubSub, Storage } from "aws-amplify";
@@ -7,7 +7,10 @@ import { AWSIoTProvider } from "@aws-amplify/pubsub";
 import awsconfig from "../src/aws-exports";
 import Location from "aws-sdk/clients/location";
 import useUpdateLocation from "../src/useUpdateLocation";
+import { useAcceptPoll, useAlertPoll } from "../src/usePolling";
 import "antd/dist/antd.css";
+import EmailProvider from "../components/EmailProvider";
+import useInterval from "../src/useInterval";
 
 // global.WebSocket = require('ws');
 // Amplify.addPluggable(
@@ -48,8 +51,35 @@ const createClient = async () => {
 
 function MyApp({ Component, pageProps }) {
     useUpdateLocation();
+
+    const [currentEmail, setCurrentEmail] = useState("");
+
+    const setSelfMail = async () => {
+        try {
+            const {
+                attributes: { email },
+            } = await Auth.currentAuthenticatedUser();
+            setCurrentEmail(email);
+            console.log("finish setCurrentEmail", email);
+        } catch {
+            console.log("failed to update setCurrentEmail");
+        }
+    };
+
+    useInterval(() => {
+        setSelfMail();
+    }, 30_000);
+
+    setTimeout(() => {
+        setSelfMail();
+    }, 7_000);
+
     return (
-        <>
+        <EmailProvider.Provider
+            value={{
+                currentEmail,
+                setCurrentEmail,
+            }}>
             <Head>
                 <meta
                     name='viewport'
@@ -57,7 +87,7 @@ function MyApp({ Component, pageProps }) {
                 />
             </Head>
             <Component {...pageProps} />
-        </>
+        </EmailProvider.Provider>
     );
 }
 

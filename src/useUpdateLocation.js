@@ -19,7 +19,7 @@ function updateLocation() {
                     long: longitude,
                 },
             })
-                .then((r) => console.log(`finished update location:`, r))
+                // .then((r) => console.log(`finished update location:`, r))
                 .catch((e) => console.log("failed update location"));
         },
         (err) => console.log(`err`, err)

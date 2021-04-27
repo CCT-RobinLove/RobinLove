@@ -79,9 +79,47 @@ const convertUrlType = (param, type) => {
     }
 };
 
+app.get(path + hashKeyPath, function (req, res) {
+    var condition = {};
+    condition[partitionKeyName] = {
+        ComparisonOperator: "EQ",
+    };
+
+    if (userIdPresent && req.apiGateway) {
+        condition[partitionKeyName]["AttributeValueList"] = [
+            req.apiGateway.event.requestContext.identity.cognitoIdentityId ||
+                UNAUTH,
+        ];
+    } else {
+        try {
+            condition[partitionKeyName]["AttributeValueList"] = [
+                convertUrlType(req.params[partitionKeyName], partitionKeyType),
+            ];
+        } catch (err) {
+            res.statusCode = 500;
+            res.json({ error: "Wrong column type " + err });
+        }
+    }
+
+    let queryParams = {
+        TableName: tableName,
+        KeyConditions: condition,
+    };
+
+    dynamodb.query(queryParams, (err, data) => {
+        if (err) {
+            res.statusCode = 500;
+            res.json({ error: "Could not load items: " + err });
+        } else {
+            res.json(data.Items);
+        }
+    });
+});
+
 app.post(path, async function (req, res) {
     const SES = new AWS.SES({ apiVersion: "2010-12-01" });
     const body = req.body;
+    console.log(body);
     if (
         !body ||
         !body.subject ||
@@ -96,68 +134,132 @@ app.post(path, async function (req, res) {
 
     const charset = "UTF-8"; // encoding
 
+    const dynamodbItem = {
+        mail_to: body.acceptor_email,
+        accepted_mail: body.acceptee_email,
+        status: body.status,
+    };
+
+    let putItemParams = {
+        TableName: tableName,
+        Item: dynamodbItem,
+    };
+    console.log("Put item params:", putItemParams);
+
     try {
-        var params = {
-            Destination: {
-                /* required */
-                // CcAddresses: [
-                //     body.email,
-                //     /* more items */
-                // ],
-                ToAddresses: [
-                    body.acceptee_email,
-                    body.acceptor_email,
-                    /* more items */
-                ],
-            },
-            Message: {
-                Subject: {
-                    Data: body.subject,
-                    Charset: charset,
-                },
-                /* required */
-                Body: {
-                    /* required */
-                    // Html: {
-                    //     Charset: "UTF-8",
-                    //     Data: "HTML_FORMAT_BODY",
-                    // },
-                    Text: {
-                        Charset: charset,
-                        Data: body.message,
-                    },
-                },
-                Subject: {
-                    Charset: "UTF-8",
-                    Data: "Test email",
-                },
-            },
-            Source: "masketbeatz@gmail.com" /* required */,
-        };
-
-        // const AttributeParams = {
-        //     attributes: {
-        //         DefaultSMSType: "alarm",
-        //     },
-        // };
-        // const messageParams = {
-        //     Message: body.message,
-        //     PhoneNumber: body.phoneNumber,
-        // };
-
-        let data = await SES.sendEmail(params).promise();
-        // await SNS.setSMSAttributes(AttributeParams).promise();
-        // await SNS.publish(messageParams).promise();
-        console.log(data);
+        let dynamodata = await dynamodb.put(putItemParams).promise();
+        console.log("Uploaded to dynamodb success naja:", dynamodata);
     } catch (err) {
         res.statusCode = 500;
-        console.log("sns error:", err);
+        console.log("err(db):", err);
         res.json({ error: err, url: req.url, body: req.body });
         return;
     }
+    if (body.status) {
+        try {
+            var params = {
+                Destination: {
+                    /* required */
+                    // CcAddresses: [
+                    //     body.email,
+                    //     /* more items */
+                    // ],
+                    ToAddresses: [
+                        body.acceptee_email,
+                        body.acceptor_email,
+                        /* more items */
+                    ],
+                },
+                Message: {
+                    Subject: {
+                        Data: body.subject,
+                        Charset: charset,
+                    },
+                    /* required */
+                    Body: {
+                        /* required */
+                        // Html: {
+                        //     Charset: "UTF-8",
+                        //     Data: "HTML_FORMAT_BODY",
+                        // },
+                        Text: {
+                            Charset: charset,
+                            Data: body.message,
+                        },
+                    },
+                },
+                Source: "cctrobinlove@gmail.com" /* required */,
+            };
+
+            // const AttributeParams = {
+            //     attributes: {
+            //         DefaultSMSType: "alarm",
+            //     },
+            // };
+            // const messageParams = {
+            //     Message: body.message,
+            //     PhoneNumber: body.phoneNumber,
+            // };
+
+            let data = await SES.sendEmail(params).promise();
+            // await SNS.setSMSAttributes(AttributeParams).promise();
+            // await SNS.publish(messageParams).promise();
+            console.log(data);
+        } catch (err) {
+            res.statusCode = 500;
+            console.log("sns error:", err);
+            res.json({ error: err, url: req.url, body: req.body });
+            return;
+        }
+    }
+
     res.json({
-        success: "Message sent",
+        success: "Status Updated",
         body: req.body,
+    });
+});
+
+app.delete(path + "/object" + hashKeyPath + sortKeyPath, function (req, res) {
+    var params = {};
+    if (userIdPresent && req.apiGateway) {
+        params[partitionKeyName] =
+            req.apiGateway.event.requestContext.identity.cognitoIdentityId ||
+            UNAUTH;
+    } else {
+        params[partitionKeyName] = req.params[partitionKeyName];
+        try {
+            params[partitionKeyName] = convertUrlType(
+                req.params[partitionKeyName],
+                partitionKeyType
+            );
+        } catch (err) {
+            res.statusCode = 500;
+            res.json({ error: "Wrong column type " + err });
+        }
+    }
+    if (hasSortKey) {
+        try {
+            params[sortKeyName] = convertUrlType(
+                req.params[sortKeyName],
+                sortKeyType
+            );
+        } catch (err) {
+            res.statusCode = 500;
+            res.json({ error: "Wrong column type " + err });
+        }
+    }
+
+    let removeItemParams = {
+        TableName: tableName,
+        Key: params,
+    };
+    dynamodb.delete(removeItemParams, (err, data) => {
+        if (err) {
+            res.statusCode = 500;
+            res.json({ error: err, url: req.url });
+        } else {
+            res.json({ url: req.url, data: data });
+        }
     });
 });
 
