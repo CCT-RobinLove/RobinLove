@@ -15,11 +15,37 @@ var express = require('express')
 
 AWS.config.update({ region: process.env.TABLE_REGION });
 
+const secretName = "prod/robin";
+async function getSecrets() {
+    var secret_err;
+    const secretResponse = await client
+        .getSecretValue({ SecretId: secretName })
+        .promise()
+        .catch((e) => (secret_err = e));
+    const {
+        ROBIN_ACCESS_KEY_ID,
+        ROBIN_BUCKET_NAME,
+        ROBIN_ENV,
+        ROBIN_REGION,
+        ROBIN_SECRET_ACCESS_KEY,
+        ROBIN_TABLE_REGION,
+    } = secretResponse.SecretString;
+    return {
+        ROBIN_ACCESS_KEY_ID,
+        ROBIN_BUCKET_NAME,
+        ROBIN_ENV,
+        ROBIN_REGION,
+        ROBIN_SECRET_ACCESS_KEY,
+        ROBIN_TABLE_REGION,
+    };
+}
+
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "alert2Table";
-if(process.env.ENV && process.env.ENV !== "NONE") {
-  tableName = tableName + '-' + process.env.ENV;
+const getTableName = async () => {
+  let tableName = "alert2Table";
+  const { ROBIN_ENV } = await getSecrets();
+  return tableName + ROBIN_ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
@@ -58,7 +84,7 @@ const convertUrlType = (param, type) => {
  * HTTP Get method for list objects *
  ********************************/
 
-app.get(path + hashKeyPath, function(req, res) {
+app.get(path + hashKeyPath, async function(req, res) {
   var condition = {}
   condition[partitionKeyName] = {
     ComparisonOperator: 'EQ'
@@ -75,6 +101,7 @@ app.get(path + hashKeyPath, function(req, res) {
     }
   }
 
+  const tableName = await getTableName();
   let queryParams = {
     TableName: tableName,
     KeyConditions: condition
@@ -94,7 +121,7 @@ app.get(path + hashKeyPath, function(req, res) {
  * HTTP Get method for get single object *
  *****************************************/
 
-app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
+app.get(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
   var params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -116,6 +143,7 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   }
 
+  const tableName = await getTableName();
   let getItemParams = {
     TableName: tableName,
     Key: params
@@ -140,12 +168,13 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
 * HTTP put method for insert object *
 *************************************/
 
-app.put(path, function(req, res) {
+app.put(path, async function(req, res) {
 
   if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  const tableName = await getTableName();
   let putItemParams = {
     TableName: tableName,
     Item: req.body
@@ -164,12 +193,13 @@ app.put(path, function(req, res) {
 * HTTP post method for insert object *
 *************************************/
 
-app.post(path, function(req, res) {
+app.post(path, async function(req, res) {
 
   if (userIdPresent) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  const tableName = await getTableName();
   let putItemParams = {
     TableName: tableName,
     Item: req.body
@@ -188,7 +218,7 @@ app.post(path, function(req, res) {
 * HTTP remove method to delete object *
 ***************************************/
 
-app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
+app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
   var params = {};
   if (userIdPresent && req.apiGateway) {
     params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -210,6 +240,7 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
     }
   }
 
+  const tableName = await getTableName();
   let removeItemParams = {
     TableName: tableName,
     Key: params

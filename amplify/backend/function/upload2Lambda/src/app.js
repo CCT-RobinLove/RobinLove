@@ -11,17 +11,41 @@ var awsServerlessExpressMiddleware = require("aws-serverless-express/middleware"
 var bodyParser = require("body-parser");
 var express = require("express");
 
+const secretName = "prod/robin";
+async function getSecrets() {
+    var secret_err;
+    const secretResponse = await client
+        .getSecretValue({ SecretId: secretName })
+        .promise()
+        .catch((e) => (secret_err = e));
+    const {
+        ROBIN_ACCESS_KEY_ID,
+        ROBIN_BUCKET_NAME,
+        ROBIN_ENV,
+        ROBIN_REGION,
+        ROBIN_SECRET_ACCESS_KEY,
+        ROBIN_TABLE_REGION,
+    } = secretResponse.SecretString;
+    return {
+        ROBIN_ACCESS_KEY_ID,
+        ROBIN_BUCKET_NAME,
+        ROBIN_ENV,
+        ROBIN_REGION,
+        ROBIN_SECRET_ACCESS_KEY,
+        ROBIN_TABLE_REGION,
+    };
+}
+
 AWS.config.update({
-    region: process.env.TABLE_REGION,
-    accessKeyId: process.env.ACCESS_KEY_ID,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    region: process.env.TABLE_REGION
 });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "upload2Table";
-if (process.env.ENV && process.env.ENV !== "NONE") {
-    tableName = tableName + "-" + process.env.ENV;
+const getTableName = async () => {
+    let tableName = "upload2Table";
+    const { ROBIN_ENV } = await getSecrets();
+    return tableName + ROBIN_ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
@@ -57,14 +81,23 @@ const convertUrlType = (param, type) => {
 };
 
 // S3
-const s3 = new AWS.S3({
-    // accessKeyId: process.env.ACCESS_KEY_ID,
-    // secretAccessKey: process.env.SECRET_ACCESS_KEY,
-});
-const BUCKET_NAME = process.env.BUCKET_NAME;
-console.log("Region:", process.env.TABLE_REGION);
-console.log("Table name:", tableName);
-console.log("Bucket name:", BUCKET_NAME);
+const getS3 = async () => {
+
+    const { ROBIN_ACCESS_KEY_ID, ROBIN_SECRET_ACCESS_KEY, ROBIN_BUCKET_NAME } = await getSecrets();
+
+    const s3 = new AWS.S3({
+        accessKeyId: ROBIN_ACCESS_KEY_ID,
+        secretAccessKey: ROBIN_SECRET_ACCESS_KEY,
+    });
+    const BUCKET_NAME = ROBIN_BUCKET_NAME;
+
+    return { s3, BUCKET_NAME }
+    
+}
+
+// console.log("Region:", process.env.TABLE_REGION);
+// console.log("Table name:", tableName);
+// console.log("Bucket name:", BUCKET_NAME);
 
 app.get(path, async function (req, res) {
     var err = null;
@@ -87,7 +120,7 @@ app.get(path, async function (req, res) {
     }
 });
 
-app.get(path + hashKeyPath, function (req, res) {
+app.get(path + hashKeyPath, async function (req, res) {
     var condition = {};
     condition[partitionKeyName] = {
         ComparisonOperator: "EQ",
@@ -109,6 +142,7 @@ app.get(path + hashKeyPath, function (req, res) {
         }
     }
 
+    const tableName = await getTableName();
     let queryParams = {
         TableName: tableName,
         KeyConditions: condition,
@@ -141,6 +175,7 @@ app.post(path, async function (req, res) {
 
     const type = fileContent.split(";")[0].split("/")[1];
 
+    const { s3, BUCKET_NAME } = await getS3();
     const s3Params = {
         Bucket: BUCKET_NAME,
         Key: filePath, // File name you want to save as in S3
@@ -192,6 +227,7 @@ app.post(path, async function (req, res) {
         long: req.body.long,
     };
 
+    const tableName = await getTableName();
     let putItemParams = {
         TableName: tableName,
         Item: dynamodbItem,
@@ -224,13 +260,14 @@ app.post(path, async function (req, res) {
     });
 });
 
-app.put(path, function (req, res) {
+app.put(path, async function (req, res) {
     if (userIdPresent) {
         req.body["userId"] =
             req.apiGateway.event.requestContext.identity.cognitoIdentityId ||
             UNAUTH;
     }
 
+    const tableName = await getTableName();
     let putItemParams = {
         TableName: tableName,
         Item: req.body,

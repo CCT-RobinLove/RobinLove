@@ -42,9 +42,10 @@ AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "accept2Table";
-if (process.env.ENV && process.env.ENV !== "NONE") {
-    tableName = tableName + "-" + process.env.ENV;
+const getTableName = async () => {
+    let tableName = "accept2Table";
+    const { ROBIN_ENV } = await getSecrets();
+    return tableName + ROBIN_ENV;
 }
 
 const userIdPresent = false; // TODO: update in case is required to use that definition
@@ -79,7 +80,7 @@ const convertUrlType = (param, type) => {
     }
 };
 
-app.get(path + hashKeyPath, function (req, res) {
+app.get(path + hashKeyPath, async function (req, res) {
     var condition = {};
     condition[partitionKeyName] = {
         ComparisonOperator: "EQ",
@@ -100,7 +101,8 @@ app.get(path + hashKeyPath, function (req, res) {
             res.json({ error: "Wrong column type " + err });
         }
     }
-
+ 
+    const tableName = await getTableName();
     let queryParams = {
         TableName: tableName,
         KeyConditions: condition,
@@ -140,6 +142,7 @@ app.post(path, async function (req, res) {
         status: body.status,
     };
 
+    const tableName = await getTableName();
     let putItemParams = {
         TableName: tableName,
         Item: dynamodbItem,
@@ -219,7 +222,7 @@ app.post(path, async function (req, res) {
     });
 });
 
-app.delete(path + "/object" + hashKeyPath + sortKeyPath, function (req, res) {
+app.delete(path + "/object" + hashKeyPath + sortKeyPath, async function (req, res) {
     var params = {};
     if (userIdPresent && req.apiGateway) {
         params[partitionKeyName] =
@@ -249,6 +252,7 @@ app.delete(path + "/object" + hashKeyPath + sortKeyPath, function (req, res) {
         }
     }
 
+    const tableName = await getTableName();
     let removeItemParams = {
         TableName: tableName,
         Key: params,
